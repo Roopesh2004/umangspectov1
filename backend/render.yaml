@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: flask-app
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:create_app --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: ENV
+        value: prod
+      - key: SECRET_KEY
+        value: "super-secret-key"
+      - key: SQLALCHEMY_DATABASE_URI
+        value: "mysql+pymysql://user:password@host:3306/dbname"
+      - key: AUTO_CREATE_TABLES
+        value: "0"
